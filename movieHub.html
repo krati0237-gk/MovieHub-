@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MovieHub | Discover Movies</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .movie-page {
+            background-color: #07080c;
+            background-image:
+                linear-gradient(rgba(7, 8, 12, 0.58), rgba(7, 8, 12, 0.76)),
+                radial-gradient(circle at 50% -10%, rgba(239, 68, 68, 0.2), transparent 38%),
+                url("https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=2400&q=85");
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.25rem;
+            min-height: 280px;
+            margin-top: 3.5rem;
+        }
+
+        .movie-card {
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            background: #11131a;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            transition: transform 300ms ease-out, border-color 300ms, box-shadow 300ms;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-0.5rem);
+            border-color: rgba(239, 68, 68, 0.6);
+            box-shadow: 0 25px 50px -12px rgba(69, 10, 10, 0.3);
+        }
+
+        .movie-card > div:first-child {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            aspect-ratio: 2 / 3;
+            background: #191c25;
+        }
+
+        .movie-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 500ms, filter 500ms;
+        }
+
+        .movie-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.75);
+        }
+
+        .poster-placeholder {
+            padding: 1rem;
+            color: #a1a1aa;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .movie-card > div:last-child {
+            padding: 1rem;
+        }
+
+        .movie-card > div:last-child > p:first-child {
+            display: -webkit-box;
+            min-height: 2.5rem;
+            overflow: hidden;
+            color: #f4f4f5;
+            font-size: 0.875rem;
+            font-weight: 700;
+            line-height: 1.25rem;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .movie-card > div:last-child > p:last-child {
+            margin-top: 0.5rem;
+            color: #71717a;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .movie-grid > .loader {
+            grid-column: 1 / -1;
+            justify-self: center;
+            margin: 3rem auto;
+        }
+
+        .movie-grid > p {
+            grid-column: 1 / -1;
+            padding: 1.5rem;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            color: #fecaca;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .movie-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 768px) {
+            .movie-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .movie-grid {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body class="movie-page min-h-screen text-white">
+
+    <!-- Header -->
+    <header class="border-b border-white/10 bg-[#0b0c11]/65 backdrop-blur-sm">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+
+            <h1 class="text-2xl font-extrabold tracking-tight text-white drop-shadow-lg">
+                Movie<span class="text-red-500">Hub</span>
+            </h1>
+
+            <p class="hidden text-sm text-zinc-500 sm:block">
+                Discover your next movie
+            </p>
+
+        </div>
+    </header>
+
+
+    <!-- Search Section -->
+    <main class="mx-auto max-w-6xl px-6 py-12">
+
+        <div class="mx-auto max-w-3xl text-center">
+
+            <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-red-300">
+                <span class="h-2 w-2 animate-pulse rounded-full bg-red-400"></span>
+                Your cinema, your choice
+            </div>
+
+            <h2 class="text-4xl font-black tracking-tight sm:text-6xl">
+                Find Your Next
+                <span class="bg-gradient-to-r from-red-400 via-orange-300 to-amber-200 bg-clip-text text-transparent">Movie</span>
+            </h2>
+
+            <p class="mx-auto mt-4 max-w-xl text-base leading-7 text-zinc-400">
+                Search thousands of movies and explore their details.
+            </p>
+
+
+            <!-- Search -->
+            <form id="movieForm"
+                    class="mx-auto mt-8 flex max-w-2xl gap-2 rounded-2xl border border-white/15 bg-white/[.06] p-2 shadow-2xl shadow-black/30 backdrop-blur-xl transition focus-within:border-red-500/60 focus-within:ring-4 focus-within:ring-red-500/10">
+
+                <span class="flex items-center pl-3 text-xl">
+                    🔍
+                </span>
+
+                <input
+                    id="movieInput"
+                    type="text"
+                    placeholder="Search movie title..."
+                          class="min-w-0 flex-1 bg-transparent px-3 py-3 text-white outline-none placeholder:text-zinc-500"
+                >
+
+                <button
+                    type="submit"
+                          class="rounded-xl bg-red-600 px-6 py-3 font-bold transition hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-lg hover:shadow-red-500/30 active:translate-y-0">
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Movies -->
+        <div id="movieHub" class="movie-grid">
+            <div class="col-span-full flex flex-col items-center justify-center rounded-3xl border border-dashed border-white/15 bg-white/[.03] px-6 py-14 text-center shadow-2xl shadow-black/10">
+                <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-400/20 bg-red-500/10 text-3xl shadow-lg shadow-red-950/20">🎬</div>
+                <h3 class="text-xl font-bold text-zinc-100">Your next favorite is waiting</h3>
+
+                <p class="mt-2 max-w-md text-sm leading-6 text-zinc-500">Search by title and turn an ordinary evening into a great movie night.</p>
+                <div class="mt-6 flex flex-wrap justify-center gap-2 text-xs font-semibold text-zinc-400">
+                    
+                    <span class="rounded-full border border-white/10 bg-white/[.04] px-3 py-2">Drama</span>
+                    <span class="rounded-full border border-white/10 bg-white/[.04] px-3 py-2">Action</span>
+                    <span class="rounded-full border border-white/10 bg-white/[.04] px-3 py-2">Comedy</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="mt-10 border-t border-white/10 bg-[#0b0c11]/65 py-6 text-center backdrop-blur-sm">
+
+        <p class="text-sm text-zinc-500">
+            Made with
+            <span class="text-red-500">♥</span>
+            by
+            <span class="font-semibold text-zinc-300">Krati</span>
+        </p>
+
+    </footer>
+
+
+    <script src="movieHub.js"></script>
+
+</body>
+</html>

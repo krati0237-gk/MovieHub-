@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MovieHub | Movie Details</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="min-h-screen bg-[#07080d] bg-[radial-gradient(circle_at_78%_18%,rgba(239,68,68,0.25),transparent_34%),linear-gradient(115deg,#07080d,#190c14,#07080d)] text-white">
+
+    <!-- Navbar -->
+    <header class="border-b border-white/10 bg-[#090a0f]">
+        <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+
+            <a href="movieHub.html"
+               class="text-2xl font-bold">
+                Movie<span class="text-red-500">Hub</span>
+            </a>
+
+            <a href="movieHub.html"
+               class="rounded-lg border border-white/10 bg-[#151821] px-4 py-2
+                      text-sm text-zinc-400 transition hover:text-white">
+                ← Back to Home
+            </a>
+
+        </nav>
+    </header>
+
+
+    <!-- Movie Details -->
+    <main class="mx-auto max-w-6xl px-6 py-10">
+
+        <div id="movie-detail"
+              class="relative grid min-w-0 grid-cols-[minmax(320px,360px)_minmax(0,1fr)] items-start gap-8 overflow-hidden rounded-3xl border border-white/15 bg-[#11131a]/85 p-8 shadow-2xl backdrop-blur-md max-md:grid-cols-1 max-md:p-5
+                  [&>div:first-child]:aspect-[2/3] [&>div:first-child]:w-full [&>div:first-child]:max-w-[340px] [&>div:first-child]:justify-self-center [&>div:first-child]:overflow-hidden [&>div:first-child]:rounded-2xl
+                  [&>div:first-child>img]:h-full [&>div:first-child>img]:w-full [&>div:first-child>img]:object-cover [&>div:first-child>img]:transition-transform [&>div:first-child>img]:duration-500 [&>div:first-child:hover>img]:scale-105
+                  [&>div:last-child]:flex [&>div:last-child]:min-w-0 [&>div:last-child]:flex-col [&>div:last-child]:gap-5
+                  [&_h2]:pb-4 [&_h2]:text-4xl [&_h2]:font-extrabold [&_h2]:leading-tight [&_h2]:bg-gradient-to-r [&_h2]:from-red-400 [&_h2]:via-orange-300 [&_h2]:to-amber-200 [&_h2]:bg-clip-text [&_h2]:text-transparent [&_h2]:md:text-5xl [&>div:last-child>h2]:transition-colors [&>div:last-child>h2]:duration-300 [&>div:last-child>h2:hover]:text-white
+                  [&>div:last-child>section]:flex [&>div:last-child>section]:flex-wrap [&>div:last-child>section]:gap-2 [&>div:last-child>section>p]:rounded-full [&>div:last-child>section>p]:border [&>div:last-child>section>p]:border-white/10 [&>div:last-child>section>p]:bg-white/[.03] [&>div:last-child>section>p]:px-3 [&>div:last-child>section>p]:py-2 [&>div:last-child>section>p]:text-xs [&>div:last-child>section>p]:text-zinc-300 [&>div:last-child>section>p]:transition-colors [&>div:last-child>section>p]:duration-200 [&>div:last-child>section>p:hover]:border-red-400/60 [&>div:last-child>section>p:hover]:bg-red-500/20 [&>div:last-child>section>p:hover]:text-white
+                  [&>div:last-child>div]:rounded-xl [&>div:last-child>div]:border [&>div:last-child>div]:border-white/10 [&>div:last-child>div]:bg-white/[.03] [&>div:last-child>div]:p-5 [&>div:last-child>div]:transition-all [&>div:last-child>div]:duration-300 [&>div:last-child>div:hover]:-translate-y-1 [&>div:last-child>div:hover]:border-red-500/40 [&>div:last-child>div:hover]:bg-white/[.06]
+                  [&>div:last-child>div>p:first-child]:mb-2 [&>div:last-child>div>p:first-child]:text-xs [&>div:last-child>div>p:first-child]:font-bold [&>div:last-child>div>p:first-child]:uppercase [&>div:last-child>div>p:first-child]:text-red-300 [&>div:last-child>div>p:last-child]:text-zinc-300 [&>div:last-child>div>p:last-child]:transition-colors [&>div:last-child>div:hover>p:last-child]:text-white [&>div:last-child>div>section]:rounded-lg [&>div:last-child>div>section]:border [&>div:last-child>div>section]:border-white/10 [&>div:last-child>div>section]:p-4 [&>div:last-child>div>section>p:first-child]:text-red-300 [&>div:last-child>div>section>p:last-child]:text-zinc-300 [&>div:last-child>div>section>p:last-child]:transition-colors [&>div:last-child>div:hover>section>p:last-child]:text-white
+                  [&>div:last-child>div:nth-of-type(2)]:flex [&>div:last-child>div:nth-of-type(2)]:gap-4 [&>div:last-child>div:nth-of-type(4)]:flex [&>div:last-child>div:nth-of-type(4)]:gap-4 [&>div:last-child>div:nth-of-type(2)>section]:min-w-[180px] [&>div:last-child>div:nth-of-type(2)>section]:flex-1 [&>div:last-child>div:nth-of-type(4)>section]:min-w-[180px] [&>div:last-child>div:nth-of-type(4)>section]:flex-1
+                  [&>div:last-child>button]:self-start [&>div:last-child>button]:rounded-lg [&>div:last-child>button]:bg-red-700 [&>div:last-child>button]:px-4 [&>div:last-child>button]:py-3 [&>div:last-child>button]:font-bold [&>div:last-child>button>a]:text-white [&>div:last-child>button>a]:no-underline">
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-6 text-center">
+        <p class="text-sm text-zinc-500">
+            Made with <span class="text-red-500">♥</span> by
+            <span class="text-zinc-300">Krati</span>
+        </p>
+    </footer>
+
+
+    <script src="movie-details.js"></script>
+
+</body>
+</html>
