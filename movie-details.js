@@ -8,7 +8,7 @@ if (imdbID) {
 
 async function searchMovie(imdbID) {
 
-   let response = await fetch(`http://www.omdbapi.com/?apikey=3f18c1ef&i=${imdbID}&plot=full`);
+   let response = await fetch(`https://www.omdbapi.com/?apikey=3f18c1ef&i=${imdbID}&plot=full`);
     let data = await response.json()
     console.log(data);
 
